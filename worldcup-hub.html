@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MundoNow — Copa del Mundo 2026 Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --accent: #009B4D;
+      --accent-light: #e6f5ed;
+      --accent-dark: #007038;
+      --accent2: #C8102E;
+      --gold: #FFD700;
+      --bg: #F7F7F8;
+      --surface: #FFFFFF;
+      --border: #E5E7EB;
+      --text-primary: #111827;
+      --text-secondary: #6B7280;
+      --text-muted: #9CA3AF;
+      --header-bg: #0a1a12;
+      --ticker-bg: #0d2118;
+      --radius: 10px;
+      --radius-sm: 6px;
+      --shadow: 0 1px 3px rgba(0,0,0,.08), 0 4px 12px rgba(0,0,0,.04);
+      --shadow-md: 0 4px 16px rgba(0,0,0,.1);
+      --font-body: 'Inter', system-ui, sans-serif;
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --max-w: 1200px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-body); background: var(--bg); color: var(--text-primary); font-size: 15px; line-height: 1.6; }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    button { cursor: pointer; font-family: var(--font-body); }
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 20px; }
+
+    /* ===== HEADER ===== */
+    .site-header {
+      background: var(--header-bg);
+      padding: 0 20px;
+      position: sticky; top: 0; z-index: 100;
+      border-bottom: 3px solid var(--accent);
+    }
+    .site-header__inner {
+      max-width: var(--max-w); margin: 0 auto;
+      display: flex; align-items: center; height: 56px; gap: 16px;
+    }
+    .site-logo { font-weight: 800; font-size: 18px; color: #fff; letter-spacing: -.3px; flex-shrink: 0; }
+    .site-logo span { color: var(--accent); }
+    .header-divider { width: 1px; height: 24px; background: rgba(255,255,255,.15); flex-shrink: 0; }
+    .hub-name { font-weight: 700; font-size: 14px; color: rgba(255,255,255,.9); letter-spacing: .3px; text-transform: uppercase; }
+    .hub-badge {
+      background: var(--accent); color: #fff; font-size: 10px; font-weight: 700;
+      padding: 2px 8px; border-radius: 20px; letter-spacing: .5px; text-transform: uppercase;
+    }
+    .header-spacer { flex: 1; }
+    .header-nav { display: flex; gap: 4px; }
+    .header-nav a {
+      color: rgba(255,255,255,.7); font-size: 13px; font-weight: 500;
+      padding: 6px 12px; border-radius: 6px; transition: all .15s;
+    }
+    .header-nav a:hover { color: #fff; background: rgba(255,255,255,.1); }
+    .lang-toggle { display: flex; gap: 2px; background: rgba(255,255,255,.1); border-radius: 6px; padding: 3px; }
+    .lang-toggle button {
+      background: none; border: none; color: rgba(255,255,255,.6);
+      font-size: 12px; font-weight: 600; padding: 3px 8px; border-radius: 4px; transition: all .15s;
+    }
+    .lang-toggle button.active { background: var(--accent); color: #fff; }
+
+    /* ===== TICKER ===== */
+    .ticker-bar { background: var(--ticker-bg); padding: 8px 0; border-bottom: 1px solid rgba(0,155,77,.2); overflow: hidden; }
+    .ticker-inner { display: flex; align-items: center; gap: 0; }
+    .ticker-label {
+      background: var(--accent); color: #fff; font-size: 10px; font-weight: 800;
+      padding: 3px 10px; letter-spacing: 1px; text-transform: uppercase;
+      white-space: nowrap; flex-shrink: 0; margin-right: 16px; border-radius: 3px;
+    }
+    .ticker-track { display: flex; gap: 40px; animation: ticker 40s linear infinite; white-space: nowrap; }
+    .ticker-track:hover { animation-play-state: paused; }
+    .ticker-item { color: rgba(255,255,255,.85); font-size: 13px; font-weight: 400; }
+    .ticker-item strong { color: var(--accent); font-weight: 700; }
+    @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ===== ZIP HERO BANNER ===== */
+    .zip-banner {
+      background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent) 100%);
+      padding: 20px;
+    }
+    .zip-banner__inner {
+      max-width: var(--max-w); margin: 0 auto;
+      display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+    }
+    .zip-banner__icon { font-size: 32px; flex-shrink: 0; }
+    .zip-banner__text h3 { color: #fff; font-size: 16px; font-weight: 700; }
+    .zip-banner__text p { color: rgba(255,255,255,.8); font-size: 13px; margin-top: 2px; }
+    .zip-form { display: flex; gap: 8px; align-items: center; margin-left: auto; }
+    .zip-input {
+      background: rgba(255,255,255,.15); border: 1.5px solid rgba(255,255,255,.4);
+      color: #fff; padding: 9px 14px; border-radius: 8px; font-size: 14px; width: 140px;
+      outline: none; transition: border-color .15s;
+    }
+    .zip-input::placeholder { color: rgba(255,255,255,.6); }
+    .zip-input:focus { border-color: rgba(255,255,255,.9); }
+    .zip-btn {
+      background: #fff; color: var(--accent-dark); border: none;
+      padding: 9px 18px; border-radius: 8px; font-size: 13px; font-weight: 700;
+      transition: all .15s;
+    }
+    .zip-btn:hover { background: var(--gold); }
+    .zip-result { color: rgba(255,255,255,.95); font-size: 13px; font-weight: 500; margin-top: 8px; display: none; }
+
+    /* ===== HERO ===== */
+    .hero {
+      background: linear-gradient(180deg, var(--header-bg) 0%, #0d2118 100%);
+      padding: 60px 20px 50px;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: "⚽";
+      position: absolute; right: -30px; top: -30px;
+      font-size: 220px; opacity: .04;
+      transform: rotate(15deg);
+    }
+    .hero__inner { max-width: var(--max-w); margin: 0 auto; text-align: center; }
+    .hero__eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(0,155,77,.15); border: 1px solid rgba(0,155,77,.3);
+      color: var(--accent); font-size: 12px; font-weight: 700;
+      padding: 5px 14px; border-radius: 20px; text-transform: uppercase; letter-spacing: .5px;
+      margin-bottom: 20px;
+    }
+    .hero__title { font-family: var(--font-display); font-size: clamp(32px, 6vw, 58px); color: #fff; line-height: 1.1; margin-bottom: 10px; }
+    .hero__title em { color: var(--accent); font-style: normal; }
+    .hero__subtitle { color: rgba(255,255,255,.7); font-size: 17px; max-width: 560px; margin: 0 auto 32px; }
+    .hero__hosts {
+      display: flex; align-items: center; justify-content: center; gap: 16px;
+      margin-bottom: 36px; flex-wrap: wrap;
+    }
+    .host-pill {
+      display: flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12);
+      color: rgba(255,255,255,.9); padding: 8px 16px; border-radius: 30px; font-size: 14px; font-weight: 500;
+    }
+    .host-flag { font-size: 20px; }
+
+    /* ===== COUNTDOWN ===== */
+    .countdown { display: flex; gap: 16px; justify-content: center; margin-bottom: 24px; }
+    .countdown-unit { text-align: center; min-width: 70px; }
+    .countdown-num {
+      font-size: 44px; font-weight: 800; color: #fff;
+      background: rgba(255,255,255,.07); border-radius: 10px;
+      padding: 8px 12px; display: block; line-height: 1;
+      border: 1px solid rgba(0,155,77,.3);
+    }
+    .countdown-label { font-size: 11px; color: rgba(255,255,255,.5); text-transform: uppercase; letter-spacing: .5px; margin-top: 6px; }
+    .countdown-sep { font-size: 38px; color: var(--accent); line-height: 62px; font-weight: 700; }
+    .hero__opening { color: rgba(255,255,255,.6); font-size: 13px; margin-top: 12px; }
+    .hero__opening strong { color: rgba(255,255,255,.9); }
+
+    /* ===== TABS ===== */
+    .tabs-bar { background: var(--surface); border-bottom: 2px solid var(--border); position: sticky; top: 56px; z-index: 90; }
+    .tabs-inner { max-width: var(--max-w); margin: 0 auto; padding: 0 20px; display: flex; gap: 0; overflow-x: auto; }
+    .tab-btn {
+      background: none; border: none; color: var(--text-secondary);
+      font-size: 14px; font-weight: 600; padding: 14px 20px;
+      border-bottom: 2px solid transparent; margin-bottom: -2px;
+      white-space: nowrap; transition: all .15s;
+    }
+    .tab-btn:hover { color: var(--accent); }
+    .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ===== MAIN LAYOUT ===== */
+    .main-content { max-width: var(--max-w); margin: 0 auto; padding: 32px 20px; display: grid; grid-template-columns: 1fr 320px; gap: 28px; }
+    @media (max-width: 900px) { .main-content { grid-template-columns: 1fr; } }
+
+    /* ===== SECTION HEADING ===== */
+    .section-heading { font-family: var(--font-display); font-size: 26px; color: var(--text-primary); margin-bottom: 20px; }
+    .section-heading span { color: var(--accent); }
+
+    /* ===== GROUPS GRID ===== */
+    .groups-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; margin-bottom: 32px; }
+    .group-card { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); overflow: hidden; box-shadow: var(--shadow); }
+    .group-card__header {
+      background: var(--accent); color: #fff; padding: 10px 14px;
+      font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: .5px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .group-card__badge { background: rgba(255,255,255,.2); font-size: 10px; padding: 2px 6px; border-radius: 4px; }
+    .group-card__teams { padding: 4px 0; }
+    .team-row {
+      display: flex; align-items: center; gap: 10px; padding: 8px 14px;
+      border-bottom: 1px solid var(--border); transition: background .12s;
+    }
+    .team-row:last-child { border-bottom: none; }
+    .team-row:hover { background: var(--accent-light); }
+    .team-flag { font-size: 18px; width: 24px; text-align: center; flex-shrink: 0; }
+    .team-name { font-size: 13px; font-weight: 500; color: var(--text-primary); }
+    .team-rank { font-size: 11px; color: var(--text-muted); margin-left: auto; }
+    .team-tbd { font-size: 12px; color: var(--text-muted); font-style: italic; }
+
+    /* ===== VENUES GRID ===== */
+    .venues-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin-bottom: 32px; }
+    .venue-card { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); overflow: hidden; box-shadow: var(--shadow); }
+    .venue-card__header {
+      padding: 14px 16px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: flex-start; gap: 12px;
+    }
+    .venue-emoji { font-size: 28px; flex-shrink: 0; }
+    .venue-card__info h4 { font-size: 14px; font-weight: 700; color: var(--text-primary); }
+    .venue-card__info p { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+    .venue-card__stats { padding: 10px 16px; display: flex; gap: 12px; flex-wrap: wrap; }
+    .venue-stat { display: flex; flex-direction: column; align-items: center; }
+    .venue-stat-val { font-size: 15px; font-weight: 700; color: var(--accent); }
+    .venue-stat-lbl { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .3px; }
+    .venue-country { background: var(--accent-light); color: var(--accent-dark); font-size: 11px; font-weight: 700; padding: 4px 10px; margin: 0 16px 14px; border-radius: 4px; display: inline-block; }
+    .venue-final { background: linear-gradient(90deg, #FFD700, #FFA500); color: #333; }
+
+    /* ===== MAP SECTION ===== */
+    .map-section { background: var(--header-bg); padding: 48px 20px; }
+    .map-section__inner { max-width: var(--max-w); margin: 0 auto; }
+    .map-section h2 { font-family: var(--font-display); font-size: 28px; color: #fff; margin-bottom: 8px; }
+    .map-section h2 em { color: var(--accent); font-style: normal; }
+    .map-section p { color: rgba(255,255,255,.6); font-size: 14px; margin-bottom: 24px; }
+    #wc-map-container {
+      background: #0d2118; border-radius: 14px; border: 1px solid rgba(0,155,77,.2);
+      overflow: hidden; position: relative; height: 500px;
+    }
+    #wc-map { width: 100%; height: 100%; }
+    .map-tooltip {
+      position: absolute; background: rgba(10,26,18,.95); border: 1px solid rgba(0,155,77,.4);
+      color: #fff; padding: 10px 14px; border-radius: 8px; font-size: 13px;
+      pointer-events: none; z-index: 10; display: none; min-width: 180px;
+    }
+    .map-tooltip strong { color: var(--accent); font-size: 14px; }
+    .map-tooltip p { color: rgba(255,255,255,.7); margin-top: 3px; font-size: 12px; }
+    .map-legend { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 16px; }
+    .map-legend-item { display: flex; align-items: center; gap: 8px; color: rgba(255,255,255,.7); font-size: 12px; }
+    .legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+
+    /* ===== SCHEDULE ===== */
+    .schedule-group { margin-bottom: 28px; }
+    .schedule-group__title { font-size: 13px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: .5px; padding: 0 0 10px; border-bottom: 1px solid var(--border); margin-bottom: 12px; }
+    .match-row {
+      display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px;
+      padding: 12px 16px; background: var(--surface); border-radius: var(--radius-sm);
+      border: 1px solid var(--border); margin-bottom: 8px; transition: box-shadow .15s;
+    }
+    .match-row:hover { box-shadow: var(--shadow-md); }
+    .match-team { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; }
+    .match-team.away { flex-direction: row-reverse; text-align: right; }
+    .match-center { text-align: center; }
+    .match-vs { font-size: 12px; color: var(--text-muted); font-weight: 600; }
+    .match-date { font-size: 11px; color: var(--text-secondary); white-space: nowrap; }
+    .match-venue { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+    .match-badge {
+      display: inline-block; font-size: 9px; font-weight: 700; padding: 2px 6px;
+      border-radius: 3px; text-transform: uppercase; letter-spacing: .3px; margin-top: 4px;
+    }
+    .badge-opening { background: var(--accent); color: #fff; }
+    .badge-final { background: linear-gradient(90deg, #FFD700, #FFA500); color: #333; }
+    .badge-semifinal { background: var(--accent2); color: #fff; }
+    .badge-group { background: var(--accent-light); color: var(--accent-dark); }
+
+    /* ===== TEAMS ===== */
+    .teams-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px; margin-bottom: 32px; }
+    .team-card {
+      background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border);
+      padding: 20px 16px; text-align: center; box-shadow: var(--shadow); transition: all .15s;
+    }
+    .team-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .team-card__flag { font-size: 40px; margin-bottom: 10px; }
+    .team-card__name { font-size: 14px; font-weight: 700; color: var(--text-primary); }
+    .team-card__group { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+    .team-card__ranking { font-size: 12px; color: var(--accent); font-weight: 600; margin-top: 4px; }
+    .team-card__info { font-size: 11px; color: var(--text-secondary); margin-top: 6px; line-height: 1.4; }
+
+    /* ===== SIDEBAR ===== */
+    .sidebar { display: flex; flex-direction: column; gap: 20px; }
+    .card { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); overflow: hidden; box-shadow: var(--shadow); }
+    .card__header { padding: 14px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
+    .card__header h3 { font-size: 14px; font-weight: 700; color: var(--text-primary); }
+    .card__icon { font-size: 16px; }
+    .card__body { padding: 16px; }
+
+    /* ===== STATS CARD ===== */
+    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .stat-box { background: var(--bg); border-radius: var(--radius-sm); padding: 12px; text-align: center; }
+    .stat-box__val { font-size: 26px; font-weight: 800; color: var(--accent); line-height: 1; }
+    .stat-box__lbl { font-size: 11px; color: var(--text-muted); margin-top: 4px; text-transform: uppercase; letter-spacing: .3px; }
+
+    /* ===== QUALIFIED TRACKER ===== */
+    .qualified-bar { margin-bottom: 12px; }
+    .qualified-bar__label { display: flex; justify-content: space-between; font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px; }
+    .qualified-bar__track { height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
+    .qualified-bar__fill { height: 100%; background: var(--accent); border-radius: 4px; transition: width .6s ease; }
+
+    /* ===== RESOURCES CARD ===== */
+    .resource-list { list-style: none; }
+    .resource-list li { border-bottom: 1px solid var(--border); }
+    .resource-list li:last-child { border-bottom: none; }
+    .resource-list a {
+      display: flex; align-items: center; gap: 10px; padding: 11px 0;
+      color: var(--text-primary); font-size: 13px; font-weight: 500; transition: color .12s;
+    }
+    .resource-list a:hover { color: var(--accent); }
+    .resource-list .icon { font-size: 14px; width: 20px; text-align: center; }
+
+    /* ===== NEWSLETTER ===== */
+    .newsletter { background: linear-gradient(135deg, var(--accent-dark), var(--accent)); padding: 48px 20px; text-align: center; }
+    .newsletter__inner { max-width: 560px; margin: 0 auto; }
+    .newsletter__eyebrow { color: rgba(255,255,255,.8); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+    .newsletter h2 { font-family: var(--font-display); font-size: 32px; color: #fff; margin-bottom: 10px; }
+    .newsletter p { color: rgba(255,255,255,.8); font-size: 15px; margin-bottom: 28px; }
+    .newsletter-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .newsletter-card { background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); border-radius: 12px; padding: 20px; text-align: left; }
+    .newsletter-card h4 { color: #fff; font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+    .newsletter-card p { color: rgba(255,255,255,.75); font-size: 12px; margin-bottom: 14px; }
+    .nl-btn { display: block; background: #fff; color: var(--accent-dark); padding: 9px 16px; border-radius: 8px; font-size: 13px; font-weight: 700; text-align: center; transition: background .15s; }
+    .nl-btn:hover { background: var(--gold); color: #333; }
+
+    /* ===== POLL WIDGET ===== */
+    .poll-widget { background: var(--accent-light); border: 1.5px solid var(--accent); border-radius: var(--radius); padding: 18px; margin-bottom: 20px; }
+    .poll-widget h4 { font-size: 14px; font-weight: 700; color: var(--accent-dark); margin-bottom: 12px; }
+    .poll-option { margin-bottom: 8px; }
+    .poll-option label { display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 13px; padding: 8px 10px; border-radius: 6px; background: var(--surface); border: 1px solid var(--border); transition: border-color .12s; }
+    .poll-option label:hover { border-color: var(--accent); }
+    .poll-option input[type="radio"] { accent-color: var(--accent); }
+    .poll-submit { background: var(--accent); color: #fff; border: none; padding: 9px 20px; border-radius: 8px; font-size: 13px; font-weight: 700; margin-top: 8px; width: 100%; }
+    .poll-result { display: none; }
+    .poll-bar { height: 6px; background: var(--border); border-radius: 3px; margin-top: 6px; overflow: hidden; }
+    .poll-bar__fill { height: 100%; background: var(--accent); border-radius: 3px; transition: width .8s ease; }
+
+    /* ===== FOOTER ===== */
+    footer { background: var(--header-bg); padding: 32px 20px; text-align: center; color: rgba(255,255,255,.4); font-size: 12px; border-top: 1px solid rgba(255,255,255,.05); }
+    footer a { color: rgba(255,255,255,.5); }
+    footer strong { color: rgba(255,255,255,.7); }
+
+    /* ===== UTILITIES ===== */
+    .mt-0 { margin-top: 0; }
+    .badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 3px; }
+    .badge-green { background: var(--accent-light); color: var(--accent-dark); }
+    .badge-red { background: #FEE2E2; color: #991B1B; }
+    .tag { background: var(--bg); border: 1px solid var(--border); font-size: 11px; color: var(--text-secondary); padding: 3px 8px; border-radius: 4px; display: inline-block; }
+
+    /* Responsive tweaks */
+    @media (max-width: 600px) {
+      .countdown-num { font-size: 30px; padding: 6px 8px; }
+      .countdown-unit { min-width: 52px; }
+      .newsletter-cards { grid-template-columns: 1fr; }
+      .header-nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header">
+  <div class="site-header__inner">
+    <div class="site-logo">Mundo<span>Now</span></div>
+    <div class="header-divider"></div>
+    <div class="hub-name">Copa del Mundo 2026</div>
+    <div class="hub-badge">⚽ Live Hub</div>
+    <div class="header-spacer"></div>
+    <nav class="header-nav">
+      <a href="#" onclick="switchTab('groups')">Grupos</a>
+      <a href="#" onclick="switchTab('schedule')">Calendario</a>
+      <a href="#" onclick="switchTab('venues')">Sedes</a>
+      <a href="#" onclick="switchTab('teams')">Equipos</a>
+    </nav>
+    <div class="lang-toggle">
+      <button class="active">ES</button>
+      <button>EN</button>
+    </div>
+  </div>
+</header>
+
+<!-- ===== LIVE TICKER ===== -->
+<div class="ticker-bar">
+  <div class="container">
+    <div class="ticker-inner">
+      <div class="ticker-label">⚽ En Vivo</div>
+      <div class="ticker-track" id="ticker-track">
+        <span class="ticker-item"><strong>Sorteo Completado</strong> — 12 grupos confirmados para la Copa del Mundo 2026</span>
+        <span class="ticker-item"><strong>Partido Inaugural</strong> — México vs Corea del Sur · 11 Jun 2026 · Estadio Azteca</span>
+        <span class="ticker-item"><strong>Gran Final</strong> — 19 Jul 2026 · MetLife Stadium · Nueva York/Nueva Jersey 🏆</span>
+        <span class="ticker-item"><strong>48 Selecciones</strong> · 16 Sedes · 3 Países · 104 Partidos</span>
+        <span class="ticker-item"><strong>Grupo de la Muerte</strong> — Grupo I: Francia 🇫🇷 · Senegal 🇸🇳 · Noruega 🇳🇴</span>
+        <span class="ticker-item"><strong>Argentina</strong> 🇦🇷 campeona defensora en Grupo J con Argelia, Austria y Jordania</span>
+        <span class="ticker-item"><strong>EE.UU.</strong> 🇺🇸 en Grupo D · juega en casa por primera vez desde 1994</span>
+        <span class="ticker-item"><strong>Entradas</strong> — disponibles en FIFA.com/tickets</span>
+        <!-- Duplicate for seamless loop -->
+        <span class="ticker-item"><strong>Sorteo Completado</strong> — 12 grupos confirmados para la Copa del Mundo 2026</span>
+        <span class="ticker-item"><strong>Partido Inaugural</strong> — México vs Corea del Sur · 11 Jun 2026 · Estadio Azteca</span>
+        <span class="ticker-item"><strong>Gran Final</strong> — 19 Jul 2026 · MetLife Stadium · Nueva York/Nueva Jersey 🏆</span>
+        <span class="ticker-item"><strong>48 Selecciones</strong> · 16 Sedes · 3 Países · 104 Partidos</span>
+        <span class="ticker-item"><strong>Grupo de la Muerte</strong> — Grupo I: Francia 🇫🇷 · Senegal 🇸🇳 · Noruega 🇳🇴</span>
+        <span class="ticker-item"><strong>Argentina</strong> 🇦🇷 campeona defensora en Grupo J con Argelia, Austria y Jordania</span>
+        <span class="ticker-item"><strong>EE.UU.</strong> 🇺🇸 en Grupo D · juega en casa por primera vez desde 1994</span>
+        <span class="ticker-item"><strong>Entradas</strong> — disponibles en FIFA.com/tickets</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ZIP BANNER ===== -->
+<div class="zip-banner">
+  <div class="zip-banner__inner">
+    <div class="zip-banner__icon">📍</div>
+    <div class="zip-banner__text">
+      <h3>¿Cuál es tu sede más cercana?</h3>
+      <p>Ingresa tu código postal para encontrar el estadio más cercano a ti</p>
+    </div>
+    <div>
+      <div class="zip-form">
+        <input class="zip-input" id="zip-input" type="text" placeholder="Ej: 75001" maxlength="5" />
+        <button class="zip-btn" onclick="lookupZip()">Buscar</button>
+      </div>
+      <div class="zip-result" id="zip-result"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== HERO + COUNTDOWN ===== -->
+<section class="hero">
+  <div class="hero__inner">
+    <div class="hero__eyebrow">
+      <span>🌎</span> 11 Jun – 19 Jul 2026 · EE.UU. · México · Canadá
+    </div>
+    <h1 class="hero__title">Copa del Mundo <em>2026</em></h1>
+    <p class="hero__subtitle">El torneo más grande de la historia del fútbol. 48 selecciones. 16 sedes. Tres naciones anfitrionas.</p>
+    <div class="hero__hosts">
+      <div class="host-pill"><span class="host-flag">🇺🇸</span> Estados Unidos — 11 sedes</div>
+      <div class="host-pill"><span class="host-flag">🇲🇽</span> México — 3 sedes</div>
+      <div class="host-pill"><span class="host-flag">🇨🇦</span> Canadá — 2 sedes</div>
+    </div>
+    <div class="countdown" id="countdown">
+      <div class="countdown-unit"><span class="countdown-num" id="cd-days">--</span><div class="countdown-label">Días</div></div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-unit"><span class="countdown-num" id="cd-hours">--</span><div class="countdown-label">Horas</div></div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-unit"><span class="countdown-num" id="cd-mins">--</span><div class="countdown-label">Minutos</div></div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-unit"><span class="countdown-num" id="cd-secs">--</span><div class="countdown-label">Segundos</div></div>
+    </div>
+    <p class="hero__opening">hasta el partido inaugural <strong>México 🇲🇽 vs Corea del Sur 🇰🇷</strong> en el Estadio Azteca</p>
+  </div>
+</section>
+
+<!-- ===== TABS ===== -->
+<div class="tabs-bar">
+  <div class="tabs-inner" id="tabs-inner">
+    <button class="tab-btn active" onclick="switchTab('groups')" data-tab="groups">⬡ Grupos</button>
+    <button class="tab-btn" onclick="switchTab('schedule')" data-tab="schedule">📅 Calendario</button>
+    <button class="tab-btn" onclick="switchTab('venues')" data-tab="venues">🏟️ Sedes</button>
+    <button class="tab-btn" onclick="switchTab('teams')" data-tab="teams">👥 Equipos Destacados</button>
+  </div>
+</div>
+
+<!-- ===== NORTH AMERICA VENUE MAP ===== -->
+<section class="map-section">
+  <div class="map-section__inner">
+    <h2>Mapa de <em>Sedes</em></h2>
+    <p>Haz clic en un marcador para ver los detalles del estadio. 16 sedes en 3 países.</p>
+    <div id="wc-map-container">
+      <svg id="wc-map"></svg>
+      <div class="map-tooltip" id="map-tooltip"></div>
+    </div>
+    <div class="map-legend">
+      <div class="map-legend-item"><div class="legend-dot" style="background:#C8102E"></div> México</div>
+      <div class="map-legend-item"><div class="legend-dot" style="background:#009B4D"></div> EE.UU.</div>
+      <div class="map-legend-item"><div class="legend-dot" style="background:#E8C31A"></div> Canadá</div>
+      <div class="map-legend-item"><div class="legend-dot" style="background:#FFD700; width:16px; height:16px; border:2px solid #fff"></div> Sede de la Final</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MAIN CONTENT ===== -->
+<div class="main-content">
+  <!-- LEFT COLUMN -->
+  <div>
+
+    <!-- GROUPS TAB -->
+    <div class="tab-panel active" id="panel-groups">
+      <h2 class="section-heading">Los 12 <span>Grupos</span></h2>
+      <div class="groups-grid" id="groups-grid"></div>
+    </div>
+
+    <!-- SCHEDULE TAB -->
+    <div class="tab-panel" id="panel-schedule">
+      <h2 class="section-heading">Partidos <span>Clave</span></h2>
+
+      <div class="schedule-group">
+        <div class="schedule-group__title">Fase de Grupos — Inauguración</div>
+        <div class="match-row">
+          <div class="match-team home"><span>🇲🇽</span> México</div>
+          <div class="match-center">
+            <div class="match-vs">vs</div>
+            <div class="match-date">11 Jun 2026</div>
+            <div class="match-venue">Estadio Azteca, Ciudad de México</div>
+            <div><span class="match-badge badge-opening">Partido Inaugural</span></div>
+          </div>
+          <div class="match-team away">Corea del Sur <span>🇰🇷</span></div>
+        </div>
+        <div class="match-row">
+          <div class="match-team home"><span>🇺🇸</span> EE.UU.</div>
+          <div class="match-center">
+            <div class="match-vs">vs</div>
+            <div class="match-date">TBD — Jun 2026</div>
+            <div class="match-venue">Grupo D</div>
+            <div><span class="match-badge badge-group">Fase de Grupos</span></div>
+          </div>
+          <div class="match-team away">Paraguay <span>🇵🇾</span></div>
+        </div>
+        <div class="match-row">
+          <div class="match-team home"><span>🇦🇷</span> Argentina</div>
+          <div class="match-center">
+            <div class="match-vs">vs</div>
+            <div class="match-date">TBD — Jun 2026</div>
+            <div class="match-venue">Grupo J</div>
+            <div><span class="match-badge badge-group">Fase de Grupos</span></div>
+          </div>
+          <div class="match-team away">Argelia <span>🇩🇿</span></div>
+        </div>
+        <div class="match-row">
+          <div class="match-team home"><span>🇧🇷</span> Brasil</div>
+          <div class="match-center">
+            <div class="match-vs">vs</div>
+            <div class="match-date">TBD — Jun 2026</div>
+            <div class="match-venue">Grupo C</div>
+            <div><span class="match-badge badge-group">Fase de Grupos</span></div>
+          </div>
+          <div class="match-team away">Marruecos <span>🇲🇦</span></div>
+        </div>
+        <div class="match-row">
+          <div class="match-team home"><span>🇪🇸</span> España</div>
+          <div class="match-center">
+            <div class="match-vs">vs</div>
+            <div class="match-date">TBD — Jun 2026</div>
+            <div class="match-venue">Grupo H</div>
+            <div><span class="match-badge badge-group">Fase de Grupos</span></div>
+          </div>
+          <div class="match-team away">Uruguay <span>🇺🇾</span></div>
+        </div>
+      </div>
+
+      <div class="schedule-group">
+        <div class="schedule-group__title">Rondas Finales</div>
+        <div class="match-row">
+          <div class="match-team home">Semifinalista 1</div>
+          <div class="match-center">
+            <div class="match-vs">vs</div>
+            <div class="match-date">TBD — Jul 2026</div>
+            <div class="match-venue">Semifinal</div>
+            <div><span class="match-badge badge-semifinal">Semifinal</span></div>
+          </div>
+          <div class="match-team away">Semifinalista 2</div>
+        </div>
+        <div class="match-row">
+          <div class="match-team home">Semifinalista 3</div>
+          <div class="match-center">
+            <div class="match-vs">vs</div>
+            <div class="match-date">TBD — Jul 2026</div>
+            <div class="match-venue">Semifinal</div>
+            <div><span class="match-badge badge-semifinal">Semifinal</span></div>
+          </div>
+          <div class="match-team away">Semifinalista 4</div>
+        </div>
+        <div class="match-row">
+          <div class="match-team home" style="font-weight:800">Finalista 1</div>
+          <div class="match-center">
+            <div class="match-vs">vs</div>
+            <div class="match-date">19 Jul 2026</div>
+            <div class="match-venue">MetLife Stadium, Nueva York/NJ</div>
+            <div><span class="match-badge badge-final">🏆 Gran Final</span></div>
+          </div>
+          <div class="match-team away" style="font-weight:800">Finalista 2</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VENUES TAB -->
+    <div class="tab-panel" id="panel-venues">
+      <h2 class="section-heading">Las 16 <span>Sedes</span></h2>
+      <div class="venues-grid" id="venues-grid"></div>
+    </div>
+
+    <!-- TEAMS TAB -->
+    <div class="tab-panel" id="panel-teams">
+      <h2 class="section-heading">Equipos <span>Destacados</span></h2>
+      <div class="teams-grid" id="teams-grid"></div>
+    </div>
+
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <!-- POLL WIDGET -->
+    <div class="poll-widget">
+      <h4>⚽ ¿Quién ganará la Copa del Mundo 2026?</h4>
+      <div id="poll-form">
+        <div class="poll-option"><label><input type="radio" name="poll" value="argentina"> 🇦🇷 Argentina (campeona)</label></div>
+        <div class="poll-option"><label><input type="radio" name="poll" value="brasil"> 🇧🇷 Brasil</label></div>
+        <div class="poll-option"><label><input type="radio" name="poll" value="espana"> 🇪🇸 España</label></div>
+        <div class="poll-option"><label><input type="radio" name="poll" value="usa"> 🇺🇸 EE.UU. (local)</label></div>
+        <div class="poll-option"><label><input type="radio" name="poll" value="otro"> Otro</label></div>
+        <button class="poll-submit" onclick="submitPoll()">Votar</button>
+      </div>
+      <div class="poll-result" id="poll-result"></div>
+    </div>
+
+    <!-- TOURNAMENT STATS -->
+    <div class="card">
+      <div class="card__header"><span class="card__icon">📊</span><h3>El Torneo en Números</h3></div>
+      <div class="card__body">
+        <div class="stat-grid">
+          <div class="stat-box"><div class="stat-box__val">48</div><div class="stat-box__lbl">Selecciones</div></div>
+          <div class="stat-box"><div class="stat-box__val">104</div><div class="stat-box__lbl">Partidos</div></div>
+          <div class="stat-box"><div class="stat-box__val">16</div><div class="stat-box__lbl">Sedes</div></div>
+          <div class="stat-box"><div class="stat-box__val">39</div><div class="stat-box__lbl">Días</div></div>
+          <div class="stat-box"><div class="stat-box__val">3</div><div class="stat-box__lbl">Países</div></div>
+          <div class="stat-box"><div class="stat-box__val">12</div><div class="stat-box__lbl">Grupos</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUALIFIED TRACKER -->
+    <div class="card">
+      <div class="card__header"><span class="card__icon">✅</span><h3>Clasificados</h3></div>
+      <div class="card__body">
+        <div class="qualified-bar">
+          <div class="qualified-bar__label"><span>Confirmados</span><span id="qual-count">42 / 48</span></div>
+          <div class="qualified-bar__track"><div class="qualified-bar__fill" id="qual-fill" style="width:87.5%"></div></div>
+        </div>
+        <p style="font-size:12px; color:var(--text-secondary); margin-top:8px">6 plazas aún en disputa en los playoffs intercontinentales de marzo 2026.</p>
+        <div style="margin-top:12px">
+          <div style="font-size:12px; color:var(--text-muted); margin-bottom:6px; font-weight:700; text-transform:uppercase; letter-spacing:.3px">Clasificados por Confederación</div>
+          <div style="font-size:13px; line-height:2">
+            UEFA 🇪🇺 — 16 plazas<br>
+            CONMEBOL 🌎 — 6 plazas<br>
+            CONCACAF 🌍 — 6 plazas<br>
+            CAF 🌍 — 9 plazas<br>
+            AFC 🌏 — 8 plazas<br>
+            OFC 🌊 — 1 plaza
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESOURCES -->
+    <div class="card">
+      <div class="card__header"><span class="card__icon">🔗</span><h3>Recursos Oficiales</h3></div>
+      <div class="card__body" style="padding:0 16px">
+        <ul class="resource-list">
+          <li><a href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026" target="_blank"><span class="icon">🌐</span> FIFA.com — Sitio Oficial</a></li>
+          <li><a href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/teams" target="_blank"><span class="icon">👥</span> Equipos Clasificados</a></li>
+          <li><a href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/standings" target="_blank"><span class="icon">📊</span> Tabla de Grupos</a></li>
+          <li><a href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums" target="_blank"><span class="icon">📅</span> Calendario Completo</a></li>
+          <li><a href="https://gpcustomersupportfwc2026.tickets.fifa.com" target="_blank"><span class="icon">🎫</span> Entradas — FIFA Tickets</a></li>
+          <li><a href="https://www.foxsports.com/soccer/fifa-world-cup/standings" target="_blank"><span class="icon">📺</span> Cobertura Fox Sports</a></li>
+          <li><a href="https://www.espn.com/soccer/story/_/id/47108758/2026-fifa-world-cup-format-tiebreakers-fixtures-schedule" target="_blank"><span class="icon">🏆</span> Guía ESPN 2026</a></li>
+          <li><a href="https://www.telemundo.com/deportes/futbol" target="_blank"><span class="icon">🎙️</span> Telemundo Deportes</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- LIVE SCORES PLACEHOLDER -->
+    <div class="card">
+      <div class="card__header"><span class="card__icon">⚽</span><h3>Resultados en Vivo</h3></div>
+      <div class="card__body" style="text-align:center; padding: 24px 16px;">
+        <div style="font-size:36px; margin-bottom:12px">⏳</div>
+        <p style="font-size:13px; color:var(--text-secondary)">Los resultados en vivo estarán disponibles durante el torneo del 11 Jun al 19 Jul de 2026.</p>
+        <a href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026" target="_blank" style="display:inline-block; margin-top:14px; background:var(--accent); color:#fff; padding:8px 18px; border-radius:8px; font-size:13px; font-weight:700">Ver en FIFA.com</a>
+      </div>
+    </div>
+
+  </aside>
+</div>
+
+<!-- ===== NEWSLETTER ===== -->
+<section class="newsletter">
+  <div class="newsletter__inner">
+    <div class="newsletter__eyebrow">📬 Boletines MundoNow</div>
+    <h2>El Mundial en Tu Bandeja</h2>
+    <p>Análisis, previews y resultados del Mundial 2026, en español y para nuestra comunidad.</p>
+    <div class="newsletter-cards">
+      <div class="newsletter-card">
+        <h4>⚽ Fútbol MundoNow</h4>
+        <p>Previa de partidos, análisis táctico y noticias del mundo del fútbol.</p>
+        <a href="https://mundonow.beehiiv.com" target="_blank" class="nl-btn">Suscribirme →</a>
+      </div>
+      <div class="newsletter-card">
+        <h4>🌎 La Comunidad</h4>
+        <p>El Mundial como evento cultural. Qué significa para la comunidad latina en EE.UU.</p>
+        <a href="https://mundonow.substack.com" target="_blank" class="nl-btn">Suscribirme →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="container">
+    <p><strong>MundoNow</strong> · Copa del Mundo 2026 Hub · Datos: <a href="https://www.fifa.com" target="_blank">FIFA.com</a></p>
+    <p style="margin-top:8px">Los horarios y fechas están sujetos a cambios por parte de la FIFA. Última actualización: Marzo 2026.</p>
+  </div>
+</footer>
+
+<!-- ===== SCRIPTS ===== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+<script>
+// ===================================================================
+// DATA
+// ===================================================================
+
+const GROUPS = [
+  { id: "A", teams: [{flag:"🇲🇽",name:"México"},{flag:"🇰🇷",name:"Corea del Sur"},{flag:"🇿🇦",name:"Sudáfrica"},{flag:"⬜",name:"Playoff UEFA D",tbd:true}] },
+  { id: "B", teams: [{flag:"🇨🇦",name:"Canadá"},{flag:"🇨🇭",name:"Suiza"},{flag:"🇶🇦",name:"Qatar"},{flag:"⬜",name:"Playoff UEFA A",tbd:true}] },
+  { id: "C", teams: [{flag:"🇧🇷",name:"Brasil"},{flag:"🇲🇦",name:"Marruecos"},{flag:"🇭🇹",name:"Haití"},{flag:"🏴󠁧󠁢󠁳󠁣󠁴󠁿",name:"Escocia"}] },
+  { id: "D", teams: [{flag:"🇺🇸",name:"EE.UU."},{flag:"🇵🇾",name:"Paraguay"},{flag:"🇦🇺",name:"Australia"},{flag:"⬜",name:"Playoff UEFA C",tbd:true}] },
+  { id: "E", teams: [{flag:"🇩🇪",name:"Alemania"},{flag:"🇨🇮",name:"Costa de Marfil"},{flag:"🇪🇨",name:"Ecuador"},{flag:"🇨🇼",name:"Curaçao"}] },
+  { id: "F", teams: [{flag:"🇳🇱",name:"Países Bajos"},{flag:"🇹🇳",name:"Túnez"},{flag:"🇯🇵",name:"Japón"},{flag:"⬜",name:"Playoff UEFA B",tbd:true}] },
+  { id: "G", teams: [{flag:"🇧🇪",name:"Bélgica"},{flag:"🇪🇬",name:"Egipto"},{flag:"🇮🇷",name:"Irán"},{flag:"🇳🇿",name:"Nueva Zelanda"}] },
+  { id: "H", teams: [{flag:"🇪🇸",name:"España"},{flag:"🇸🇦",name:"Arabia Saudita"},{flag:"🇺🇾",name:"Uruguay"},{flag:"🇨🇻",name:"Cabo Verde"}] },
+  { id: "I", teams: [{flag:"🇫🇷",name:"Francia"},{flag:"🇸🇳",name:"Senegal"},{flag:"🇳🇴",name:"Noruega"},{flag:"⬜",name:"Playoff 2",tbd:true}] },
+  { id: "J", teams: [{flag:"🇦🇷",name:"Argentina"},{flag:"🇩🇿",name:"Argelia"},{flag:"🇦🇹",name:"Austria"},{flag:"🇯🇴",name:"Jordania"}] },
+  { id: "K", teams: [{flag:"🇵🇹",name:"Portugal"},{flag:"🇨🇴",name:"Colombia"},{flag:"🇺🇿",name:"Uzbekistán"},{flag:"⬜",name:"Playoff IC 1",tbd:true}] },
+  { id: "L", teams: [{flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",name:"Inglaterra"},{flag:"🇭🇷",name:"Croacia"},{flag:"🇬🇭",name:"Ghana"},{flag:"🇵🇦",name:"Panamá"}] }
+];
+
+const VENUES = [
+  { country: "MEX", flag:"🇲🇽", city:"Ciudad de México", stadium:"Estadio Azteca", cap:"72,766", matches:5, final:false, lat:19.3029, lng:-99.1505, note:"Primera sede en albergar 3 Mundiales" },
+  { country: "MEX", flag:"🇲🇽", city:"Guadalajara", stadium:"Estadio Akron", cap:"44,330", matches:4, final:false, lat:20.7058, lng:-103.4502, note:"Sede histórica del fútbol mexicano" },
+  { country: "MEX", flag:"🇲🇽", city:"Monterrey", stadium:"Estadio BBVA", cap:"50,113", matches:4, final:false, lat:25.6695, lng:-100.2507, note:"Uno de los estadios más modernos de México" },
+  { country: "USA", flag:"🇺🇸", city:"Dallas", stadium:"AT&T Stadium", cap:"94,000", matches:8, final:false, lat:32.7480, lng:-97.0929, note:"Estadio con el techo retráctil más grande del mundo" },
+  { country: "USA", flag:"🇺🇸", city:"Nueva York/NJ", stadium:"MetLife Stadium", cap:"82,500", matches:8, final:true, lat:40.8135, lng:-74.0745, note:"🏆 Sede de la Gran Final" },
+  { country: "USA", flag:"🇺🇸", city:"Atlanta", stadium:"Mercedes-Benz Stadium", cap:"75,000", matches:6, final:false, lat:33.7553, lng:-84.4006, note:"Casa del Atlanta United FC" },
+  { country: "USA", flag:"🇺🇸", city:"Kansas City", stadium:"Arrowhead Stadium", cap:"73,000", matches:5, final:false, lat:39.0489, lng:-94.4839, note:"Renovado para la Copa del Mundo" },
+  { country: "USA", flag:"🇺🇸", city:"Houston", stadium:"NRG Stadium", cap:"72,000", matches:6, final:false, lat:29.6847, lng:-95.4107, note:"Techo retráctil para el calor de Houston" },
+  { country: "USA", flag:"🇺🇸", city:"San Francisco", stadium:"Levi's Stadium", cap:"71,000", matches:6, final:false, lat:37.4033, lng:-121.9694, note:"Sede del Super Bowl LX" },
+  { country: "USA", flag:"🇺🇸", city:"Los Ángeles", stadium:"SoFi Stadium", cap:"70,240", matches:7, final:false, lat:33.9534, lng:-118.3393, note:"Estadio más moderno de la NFL" },
+  { country: "USA", flag:"🇺🇸", city:"Filadelfia", stadium:"Lincoln Financial Field", cap:"69,000", matches:5, final:false, lat:39.9008, lng:-75.1675, note:"Casa de los Philadelphia Eagles" },
+  { country: "USA", flag:"🇺🇸", city:"Seattle", stadium:"Lumen Field", cap:"69,000", matches:5, final:false, lat:47.5952, lng:-122.3316, note:"El estadio más ruidoso de la MLS" },
+  { country: "USA", flag:"🇺🇸", city:"Boston", stadium:"Gillette Stadium", cap:"65,878", matches:5, final:false, lat:42.0909, lng:-71.2643, note:"A 30 min de Boston en Foxborough" },
+  { country: "USA", flag:"🇺🇸", city:"Miami", stadium:"Hard Rock Stadium", cap:"65,000", matches:6, final:false, lat:25.9579, lng:-80.2388, note:"Sede de múltiples Copas Americanas" },
+  { country: "CAN", flag:"🇨🇦", city:"Toronto", stadium:"BMO Field", cap:"45,000", matches:4, final:false, lat:43.6333, lng:-79.4179, note:"Sede de Canadá en la Copa del Mundo" },
+  { country: "CAN", flag:"🇨🇦", city:"Vancouver", stadium:"BC Place", cap:"75,000", matches:4, final:false, lat:49.2768, lng:-123.1119, note:"Techo retráctil en el corazón de Vancouver" }
+];
+
+const TOP_TEAMS = [
+  { flag:"🇦🇷", name:"Argentina", group:"J", ranking:"#1 FIFA", info:"Campeona vigente. Busca su 4º título.", coach:"Lionel Scaloni" },
+  { flag:"🇫🇷", name:"Francia", group:"I", ranking:"#2 FIFA", info:"Semifinalista en Qatar 2022. Potencia mundial.", coach:"Didier Deschamps" },
+  { flag:"🇧🇷", name:"Brasil", group:"C", ranking:"#3 FIFA", info:"Récord de 5 títulos mundiales. Sédenta de gloria.", coach:"Dorival Júnior" },
+  { flag:"🇪🇸", name:"España", group:"H", ranking:"#4 FIFA", info:"Campeona de la Euro 2024. En su mejor momento.", coach:"Luis de la Fuente" },
+  { flag:"🇬🇧", name:"Inglaterra", group:"L", ranking:"#5 FIFA", info:"Finalista en Qatar 2022. ¿Será 2026 su año?", coach:"Gareth Southgate" },
+  { flag:"🇵🇹", name:"Portugal", group:"K", ranking:"#6 FIFA", info:"Cristiano Ronaldo liderando el equipo.", coach:"Roberto Martínez" },
+  { flag:"🇳🇱", name:"Países Bajos", group:"F", ranking:"#7 FIFA", info:"Cuatro finales mundiales sin ganar el título.", coach:"Ronald Koeman" },
+  { flag:"🇩🇪", name:"Alemania", group:"E", ranking:"#13 FIFA", info:"4 veces campeona. Reconstruida tras fracasos recientes.", coach:"Julian Nagelsmann" },
+  { flag:"🇺🇸", name:"EE.UU.", group:"D", ranking:"#11 FIFA", info:"Anfitrión. Primera Copa en casa desde 1994.", coach:"Mauricio Pochettino" },
+  { flag:"🇲🇽", name:"México", group:"A", ranking:"#15 FIFA", info:"Abre el torneo en el Azteca el 11 Jun.", coach:"TBD" },
+  { flag:"🇨🇦", name:"Canadá", group:"B", ranking:"#40 FIFA", info:"País anfitrión. Mejor generación de su historia.", coach:"Jesse Marsch" },
+  { flag:"🇲🇦", name:"Marruecos", group:"C", ranking:"#14 FIFA", info:"Semifinalista en Qatar 2022. Maduros y peligrosos.", coach:"Walid Regragui" }
+];
+
+// ===================================================================
+// COUNTDOWN
+// ===================================================================
+function updateCountdown() {
+  const target = new Date("2026-06-11T20:00:00-06:00"); // 8pm CDT, Mexico City
+  const now = new Date();
+  const diff = target - now;
+  if (diff <= 0) {
+    document.getElementById("cd-days").textContent = "00";
+    document.getElementById("cd-hours").textContent = "00";
+    document.getElementById("cd-mins").textContent = "00";
+    document.getElementById("cd-secs").textContent = "00";
+    return;
+  }
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  const secs = Math.floor((diff % (1000 * 60)) / 1000);
+  document.getElementById("cd-days").textContent = String(days).padStart(2, "0");
+  document.getElementById("cd-hours").textContent = String(hours).padStart(2, "0");
+  document.getElementById("cd-mins").textContent = String(mins).padStart(2, "0");
+  document.getElementById("cd-secs").textContent = String(secs).padStart(2, "0");
+}
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+// ===================================================================
+// TABS
+// ===================================================================
+function switchTab(id) {
+  document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+  document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
+  const btn = document.querySelector("[data-tab='" + id + "']");
+  if (btn) btn.classList.add("active");
+  const panel = document.getElementById("panel-" + id);
+  if (panel) panel.classList.add("active");
+}
+
+// ===================================================================
+// RENDER GROUPS
+// ===================================================================
+function renderGroups() {
+  const grid = document.getElementById("groups-grid");
+  if (!grid) return;
+  grid.innerHTML = GROUPS.map(g => {
+    const teams = g.teams.map(t => {
+      return '<div class="team-row">' +
+        '<span class="team-flag">' + t.flag + '</span>' +
+        (t.tbd
+          ? '<span class="team-tbd">' + t.name + '</span>'
+          : '<span class="team-name">' + t.name + '</span>') +
+        '</div>';
+    }).join("");
+    return '<div class="group-card">' +
+      '<div class="group-card__header">Grupo ' + g.id + ' <span class="group-card__badge">4 equipos</span></div>' +
+      '<div class="group-card__teams">' + teams + '</div>' +
+      '</div>';
+  }).join("");
+}
+
+// ===================================================================
+// RENDER VENUES
+// ===================================================================
+function renderVenues() {
+  const grid = document.getElementById("venues-grid");
+  if (!grid) return;
+  grid.innerHTML = VENUES.map(v => {
+    const countryColors = {MEX:"#C8102E", USA:"#009B4D", CAN:"#E8C31A"};
+    const countryNames = {MEX:"México", USA:"EE.UU.", CAN:"Canadá"};
+    const isFinal = v.final;
+    return '<div class="venue-card">' +
+      '<div class="venue-card__header">' +
+        '<div class="venue-emoji">' + v.flag + '</div>' +
+        '<div class="venue-card__info">' +
+          '<h4>' + v.stadium + '</h4>' +
+          '<p>' + v.city + '</p>' +
+        '</div>' +
+      '</div>' +
+      (isFinal ? '<div class="venue-country venue-final">🏆 Sede de la Gran Final</div>' : '<div class="venue-country">' + countryNames[v.country] + '</div>') +
+      '<div class="venue-card__stats">' +
+        '<div class="venue-stat"><div class="venue-stat-val">' + v.cap + '</div><div class="venue-stat-lbl">Capacidad</div></div>' +
+        '<div class="venue-stat"><div class="venue-stat-val">' + v.matches + '</div><div class="venue-stat-lbl">Partidos</div></div>' +
+      '</div>' +
+      '<div style="padding:0 16px 14px; font-size:12px; color:var(--text-secondary)">' + v.note + '</div>' +
+      '</div>';
+  }).join("");
+}
+
+// ===================================================================
+// RENDER TEAMS
+// ===================================================================
+function renderTeams() {
+  const grid = document.getElementById("teams-grid");
+  if (!grid) return;
+  grid.innerHTML = TOP_TEAMS.map(t => {
+    return '<div class="team-card">' +
+      '<div class="team-card__flag">' + t.flag + '</div>' +
+      '<div class="team-card__name">' + t.name + '</div>' +
+      '<div class="team-card__group">Grupo ' + t.group + '</div>' +
+      '<div class="team-card__ranking">' + t.ranking + '</div>' +
+      '<div class="team-card__info">' + t.info + '</div>' +
+      '</div>';
+  }).join("");
+}
+
+// ===================================================================
+// MAP RENDERING (D3 + World Atlas)
+// ===================================================================
+function renderMap() {
+  const container = document.getElementById("wc-map-container");
+  const svg = d3.select("#wc-map");
+  const tooltip = document.getElementById("map-tooltip");
+  const W = container.clientWidth;
+  const H = container.clientHeight || 500;
+
+  // North America bounds — use Mercator centered on NA
+  const projection = d3.geoMercator()
+    .center([-95, 38])
+    .scale(W * 0.55)
+    .translate([W / 2, H / 2]);
+
+  const path = d3.geoPath().projection(projection);
+
+  fetch("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json")
+    .then(r => r.json())
+    .then(world => {
+      const countries = topojson.feature(world, world.objects.countries);
+      const northAmericaIDs = new Set(["840","484","124","630","192","170","218","591","320","340","332","558","222","188","388","214","558","604","858","862","076","032"]);
+      // Filter and draw countries
+      const filtered = {
+        type: "FeatureCollection",
+        features: countries.features.filter(f => {
+          const id = String(f.id);
+          return northAmericaIDs.has(id);
+        })
+      };
+
+      svg.append("rect").attr("width", W).attr("height", H).attr("fill", "#0a1a12");
+
+      svg.selectAll(".country")
+        .data(countries.features)
+        .join("path")
+        .attr("class", "country")
+        .attr("d", path)
+        .attr("fill", d => {
+          const id = String(d.id);
+          if (id === "840") return "#1a3826"; // USA
+          if (id === "484") return "#2a1a1a"; // Mexico
+          if (id === "124") return "#1a2a1a"; // Canada
+          return "#111d16";
+        })
+        .attr("stroke", "#1a3a22")
+        .attr("stroke-width", 0.5);
+
+      // Country label
+      const countryLabels = [
+        {id:"840", label:"EE.UU.", lat:38, lng:-98},
+        {id:"484", label:"México", lat:23, lng:-102},
+        {id:"124", label:"Canadá", lat:60, lng:-96}
+      ];
+
+      countryLabels.forEach(cl => {
+        const [x, y] = projection([cl.lng, cl.lat]);
+        if (x > 0 && x < W && y > 0 && y < H) {
+          svg.append("text")
+            .attr("x", x).attr("y", y)
+            .attr("text-anchor", "middle")
+            .attr("font-size", "11px")
+            .attr("fill", "rgba(255,255,255,0.25)")
+            .attr("font-family", "Inter, sans-serif")
+            .attr("font-weight", "600")
+            .attr("letter-spacing", "1px")
+            .attr("text-transform", "uppercase")
+            .text(cl.label.toUpperCase());
+        }
+      });
+
+      // Venue dots
+      const countryColor = {MEX:"#C8102E", USA:"#009B4D", CAN:"#E8C31A"};
+
+      const venueGroups = svg.selectAll(".venue-dot")
+        .data(VENUES)
+        .join("g")
+        .attr("class", "venue-dot")
+        .attr("transform", d => {
+          const [x, y] = projection([d.lng, d.lat]);
+          return "translate(" + x + "," + y + ")";
+        })
+        .style("cursor", "pointer");
+
+      // Outer ring (pulse) for final
+      venueGroups.filter(d => d.final)
+        .append("circle")
+        .attr("r", 12)
+        .attr("fill", "none")
+        .attr("stroke", "#FFD700")
+        .attr("stroke-width", 2)
+        .attr("opacity", 0.5)
+        .attr("class", "pulse-ring");
+
+      // Main dot
+      venueGroups.append("circle")
+        .attr("r", d => d.final ? 9 : 6)
+        .attr("fill", d => d.final ? "#FFD700" : countryColor[d.country])
+        .attr("stroke", "#0a1a12")
+        .attr("stroke-width", 1.5)
+        .attr("opacity", 0.92);
+
+      // Hover interaction
+      venueGroups
+        .on("mouseover", function(event, d) {
+          d3.select(this).select("circle:not(.pulse-ring)").transition().duration(150).attr("r", d.final ? 12 : 9);
+          tooltip.style.display = "block";
+          tooltip.innerHTML = "<strong>" + d.stadium + "</strong><p>" + d.city + " " + d.flag + "</p><p>Capacidad: " + d.cap + " · " + d.matches + " partidos</p><p style='margin-top:4px; font-style:italic'>" + d.note + "</p>";
+        })
+        .on("mousemove", function(event) {
+          const rect = container.getBoundingClientRect();
+          let tx = event.clientX - rect.left + 14;
+          let ty = event.clientY - rect.top - 10;
+          if (tx + 200 > W) tx = tx - 220;
+          tooltip.style.left = tx + "px";
+          tooltip.style.top = ty + "px";
+        })
+        .on("mouseout", function(event, d) {
+          d3.select(this).select("circle:not(.pulse-ring)").transition().duration(150).attr("r", d.final ? 9 : 6);
+          tooltip.style.display = "none";
+        });
+
+      // CSS pulse animation for final venue
+      const style = document.createElement("style");
+      style.textContent = ".pulse-ring { animation: pulse 2s ease-out infinite; } @keyframes pulse { 0% { r: 9; opacity: 0.8; } 100% { r: 18; opacity: 0; } }";
+      document.head.appendChild(style);
+
+    })
+    .catch(err => {
+      console.warn("Map load error:", err);
+      const container2 = document.getElementById("wc-map-container");
+      container2.innerHTML = "<div style='display:flex;align-items:center;justify-content:center;height:100%;color:rgba(255,255,255,.5);font-size:14px'>Mapa no disponible — ver lista de sedes abajo</div>";
+    });
+}
+
+// ===================================================================
+// ZIP LOOKUP — Nearest Venue
+// ===================================================================
+async function lookupZip() {
+  const zipVal = document.getElementById("zip-input").value.trim();
+  const resultEl = document.getElementById("zip-result");
+  if (!/^\d{5}$/.test(zipVal)) {
+    resultEl.style.display = "block";
+    resultEl.textContent = "Por favor ingresa un código postal de 5 dígitos.";
+    return;
+  }
+  resultEl.style.display = "block";
+  resultEl.textContent = "Buscando...";
+
+  try {
+    const url = "https://api.zippopotam.us/us/" + zipVal;
+    const resp = await fetch(url);
+    if (!resp.ok) throw new Error("ZIP not found");
+    const data = await resp.json();
+    const lat = parseFloat(data.places[0].latitude);
+    const lng = parseFloat(data.places[0].longitude);
+    const city = data.places[0]["place name"];
+    const state = data.places[0]["state abbreviation"];
+
+    // Find nearest venue
+    let nearest = null, minDist = Infinity;
+    VENUES.forEach(v => {
+      const dlat = v.lat - lat;
+      const dlng = v.lng - lng;
+      const dist = Math.sqrt(dlat * dlat + dlng * dlng);
+      if (dist < minDist) { minDist = dist; nearest = v; }
+    });
+
+    if (nearest) {
+      resultEl.textContent = city + ", " + state + " → Sede más cercana: " + nearest.stadium + " en " + nearest.city + " (" + nearest.flag + ")";
+    }
+  } catch (e) {
+    resultEl.textContent = "No se pudo encontrar tu código postal. Intenta con otro.";
+  }
+}
+
+// Enter key on ZIP input
+document.getElementById("zip-input").addEventListener("keydown", function(e) {
+  if (e.key === "Enter") lookupZip();
+});
+
+// ===================================================================
+// POLL
+// ===================================================================
+const POLL_RESULTS = { argentina: 38, brasil: 22, espana: 17, usa: 14, otro: 9 };
+const POLL_LABELS = { argentina: "🇦🇷 Argentina", brasil: "🇧🇷 Brasil", espana: "🇪🇸 España", usa: "🇺🇸 EE.UU.", otro: "Otro" };
+
+function submitPoll() {
+  const sel = document.querySelector("input[name='poll']:checked");
+  if (!sel) return alert("Por favor selecciona una opción.");
+  POLL_RESULTS[sel.value] += 1;
+  const total = Object.values(POLL_RESULTS).reduce((a, b) => a + b, 0);
+  const resultEl = document.getElementById("poll-result");
+  const formEl = document.getElementById("poll-form");
+  formEl.style.display = "none";
+  resultEl.style.display = "block";
+  resultEl.innerHTML = "<div style='font-size:13px; font-weight:700; color:var(--accent-dark); margin-bottom:10px'>¡Gracias por votar!</div>" +
+    Object.entries(POLL_RESULTS).sort((a,b) => b[1]-a[1]).map(([k, v]) => {
+      const pct = Math.round((v / total) * 100);
+      return '<div style="margin-bottom:8px"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px"><span>' + POLL_LABELS[k] + '</span><span style="font-weight:700">' + pct + '%</span></div><div class="poll-bar"><div class="poll-bar__fill" style="width:' + pct + '%"></div></div></div>';
+    }).join("");
+}
+
+// ===================================================================
+// LANGUAGE TOGGLE (cosmetic)
+// ===================================================================
+document.querySelectorAll(".lang-toggle button").forEach(btn => {
+  btn.addEventListener("click", function() {
+    document.querySelectorAll(".lang-toggle button").forEach(b => b.classList.remove("active"));
+    this.classList.add("active");
+  });
+});
+
+// ===================================================================
+// INIT
+// ===================================================================
+renderGroups();
+renderVenues();
+renderTeams();
+renderMap();
+
+</script>
+</body>
+</html>
